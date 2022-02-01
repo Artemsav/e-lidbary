@@ -1,24 +1,28 @@
-# Скрипт для электронноно дневника школы
+#E-library
 
-Этот скрипт позволяет исправлять плохие оценки по предметам, удалять замечанния и добавлять благодарности от учителей в электронном дневнике расположенном по данному [адресу](https://github.com/devmanorg/e-diary). Для работы скрипта нужно заранее развернуть [проект данного сайта](https://github.com/devmanorg/e-diary), также необходима база данных оценок дневника.
+## Project description
 
-## Запуск
+This script allows downloading books from electronic library from this [address](https://tululu.org/).
 
-- Скачайте код, положите в папку с проектом рядом с `manage.py`
-- Для исправление оценок и удаления замечаний запустите скрипт командой `python3 fix_marks.py Иванов Иван`, где Иванов Иван - фамилия и имя ученика (для работы скрипта необходимо ввести сначала фамилию, потом имя), которому необходимо исправить оценки. При успешном завершения скрипта получим следующий вывод от программы:
-`Ученик найден`
-`Оценки исправлены`
-`Замечания удалены`
-В случае некорректного ввода (ученика нет в базе данных, не ввели фамилию, а только имя и т.п.):
-`Пожалуйста проверьте имя ученика. Имя Иванов Иван некорректно. Для поиска необходимо использовать как имя, так и фамилию ученика.`
-- Для добавление благодарности от учителя запустите скрипт командой `python3 manage.py Иванов Иван -s Математика`, где Иванов Иван - имя ученика, Математика - название предмета, по которому необходима благодарность. Скрипт удалит плохие оценки и замечания по всем предметам и добавит благодарность по указанному пользователем. ри успешном завершения скрипта получим следующий вывод от программы:
-`Ученик найден`
-`Оценки исправлены`
-`Замечания удалены`
-`Благодарность присвоена`
-В случае некорректного ввода (предмета нет в базе данных):
-`Пожалуйста проверьте название предмета. Название предмета {предмет} некорректно. Для поиска необходимо использовать корректное название.`
+To run the bot you shall use the following command:
 
-## Цели проекта
+```bash
+python lib_request.py 1 10
+```
+Where the numbers ```1 10``` it is ```id``` of the books on [electronic library](https://tululu.org/). Typical address of the page of the book is ```https://tululu.org/b20/```
+When the scripts creates two folders ```books``` with .txt files with book-text and ```images``` with book cover picture.
 
-Код написан в учебных целях — это урок в курсе по Python и веб-разработке на сайте [Devman](https://dvmn.org).
+
+## Instalation
+
+Python3 should be already installed. Then use pip (or pip3, if there is a conflict with Python2) to install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+
+## Project Goals
+
+
+The code is written for educational purposes on online-course for web-developers [Devman](https://dvmn.org)

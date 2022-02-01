@@ -32,7 +32,6 @@ MANIFEST
 project/
 datacenter/
 manage.py
-requirements.txt
 schoolbase.sqlite3
 bs.py
 books/
