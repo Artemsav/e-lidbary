@@ -66,7 +66,7 @@ def parse_book_page(response):
     else:
         picture_link = None
     raw_parse_genre = soup.find('span', class_='d_book').text.split(':')
-    _, genre = raw_parse_genre
+    __, genre = raw_parse_genre
     find_table_with_links = soup.find('table', class_='d_book')
     txt_link = None
     for a in find_table_with_links.find_all('a'):
