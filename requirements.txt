@@ -1,2 +1,5 @@
 lxml==4.7.1
 tqdm==4.62.3
+requests==2.27.1
+pathvalidate==2.5.0
+beautifulsoup4==4.10.0
