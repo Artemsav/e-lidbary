@@ -22,7 +22,7 @@ def download_txt(url, filename, folder='books/'):
         filename (str): Имя файла, с которым сохранять.
         folder (str): Папка, куда сохранять.
     Returns:
-        str: Путь до файла, куда сохранён текст.
+        named_path: Путь до файла, куда сохранён текст.
     """
     path = os.path.join(pathlib.Path().resolve(), folder)
     Path(path).mkdir(exist_ok=True)
@@ -40,7 +40,7 @@ def download_image(url, filename, folder='images/'):
         filename (str): Имя файла, с которым сохранять.
         folder (str): Папка, куда сохранять.
     Returns:
-        str: Путь до файла, куда сохранён текст.
+        named_path: Путь до файла, куда сохранёно изображение.
     """
     path = os.path.join(pathlib.Path().resolve(), folder)
     Path(path).mkdir(exist_ok=True)
