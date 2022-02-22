@@ -61,18 +61,25 @@ def parse_book_page(response):
         picture_link = soup.find(class_='bookimage').find('img')['src']
     else:
         picture_link = None
-    raw_parse_genre = soup.find('span', class_='d_book').text.split(':')
-    __, genre = raw_parse_genre
+    parse_genre = soup.find('span', class_='d_book')
+    genres = []
+    for genre in parse_genre.find_all('a'):
+        genres.append(genre.get_text())
     parsed_table = soup.find('table', class_='d_book')
     txt_link = None
     for tag_a in parsed_table.find_all('a'):
         if 'txt' in tag_a['href']:
             txt_link = urljoin(response.url, tag_a['href'])
+    parse_comments = soup.find_all(class_='texts')
+    comments = []
+    for comment in parse_comments:
+        comments.append(comment.find('span').get_text())
     return {'title': title.strip(),
             'author': author.strip(),
             'picture_link': urljoin(response.url, picture_link),
-            'genre': genre.strip().strip('.'),
             'txt_link': txt_link,
+            'comments': comments,
+            'genres': genres,
             }
 
 
