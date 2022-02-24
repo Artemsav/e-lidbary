@@ -55,25 +55,26 @@ def parse_book_page(response):
     """Функция для получения всех данных по книге
     """
     soup = BeautifulSoup(response.text, 'lxml')
-    title_text = soup.find('h1').text.split('::')
+    title_text = soup.select_one('h1').get_text().split('::')
     title, author = title_text
-    if soup.find(class_='bookimage'):
-        picture_link = soup.find(class_='bookimage').find('img')['src']
+    if soup.select_one('.bookimage'):
+        picture_selector = '.bookimage img'
+        picture_link = soup.select_one(picture_selector)['src']
     else:
         picture_link = None
-    parse_genre = soup.find('span', class_='d_book')
+    parse_genre = soup.select('span.d_book a')
     genres = []
-    for genre in parse_genre.find_all('a'):
+    for genre in parse_genre:
         genres.append(genre.get_text())
-    parsed_table = soup.find('table', class_='d_book')
+    parsed_table = soup.select('table.d_book a')
     txt_link = None
-    for tag_a in parsed_table.find_all('a'):
+    for tag_a in parsed_table:
         if 'txt' in tag_a['href']:
             txt_link = urljoin(response.url, tag_a['href'])
-    parse_comments = soup.find_all(class_='texts')
+    parse_comments = soup.select('.texts span')
     comments = []
     for comment in parse_comments:
-        comments.append(comment.find('span').get_text())
+        comments.append(comment.get_text())
     return {'title': title.strip(),
             'author': author.strip(),
             'picture_link': urljoin(response.url, picture_link),
