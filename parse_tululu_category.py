@@ -5,14 +5,35 @@ from urllib.parse import urlsplit
 from lib_request import download_txt, download_image, parse_book_page, check_for_redirect
 import json
 from pathvalidate import sanitize_filename
+import argparse
+
+
+def parse_user_input():
+    """Функция для парсинга пользовательского ввода
+    """
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-s', '--start_page', help='Start page of book to be parsed', type=int)
+    parser.add_argument('-e', '--end_page', help='End page of book to be parsed', type=int)
+    args = parser.parse_args()
+    return args
+
 
 if __name__ == '__main__':
     main_url = 'https://tululu.org/'
     url = 'http://tululu.org/l55/'
+    user_input = parse_user_input()
     books_data = []
     books_path = 'books/'
     images_path = 'images/'
-    for page_id in range(1, 5):
+    if user_input.start_page:
+        start_page = user_input.start_page
+    else:
+        start_page = 1
+    if user_input.end_page:
+        end_page = user_input.end_page
+    else:
+        end_page = 2
+    for page_id in range(start_page, end_page):
         book_url = urljoin(url, ('{page_id}/'.format(page_id=page_id)))
         response = requests.get(book_url)
         response.raise_for_status()
@@ -39,7 +60,6 @@ if __name__ == '__main__':
                     if image_link:
                         image_link = book_data.get('picture_link')
                         image_name = urlsplit(image_link)[2].split('/')[-1]
-                        print(image_name)
                         download_image(url=urljoin(main_url, image_link), filename=image_name)
                     book_inf = {'title': title_text,
                                 'author': book_data.get('author'),
