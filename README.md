@@ -14,7 +14,7 @@ Where the numbers ```1 10``` it is ```id``` of the books on [electronic library]
 When the scripts creates two folders ```books``` with .txt files with book-text and ```images``` with book cover picture.
 
 ### parse_tululu_category script
-Second one has additional functionality via following optional arguments:
+This script is prepared to download fantastic-genre books from [library](https://tululu.org/). You can set the pages of the library to be parsed. Additionally there is extended functionality via the following optional arguments:
 ``--start_page`` and ```--end_page``` - They control from which to which page to download.
 ```--dest_folder``` - path to the directory with parsing results: pictures, books, JSON.
 ```--skip_imgs``` - do not download images
