@@ -25,7 +25,7 @@ def download_txt(url, filename, folder='books/'):
         named_path: Путь до файла, куда сохранён текст.
     """
     path = os.path.join(pathlib.Path().resolve(), folder)
-    Path(path).mkdir(exist_ok=True)
+    Path(path).mkdir(parents=True, exist_ok=True)
     named_path = '{path}{filename}.txt'.format(path=path, filename=sanitize_filename(filename))
     response = requests.get(url)
     response.raise_for_status()
@@ -43,7 +43,7 @@ def download_image(url, filename, folder='images/'):
         named_path: Путь до файла, куда сохранёно изображение.
     """
     path = os.path.join(pathlib.Path().resolve(), folder)
-    Path(path).mkdir(exist_ok=True)
+    Path(path).mkdir(parents=True, exist_ok=True)
     named_path = '{path}{filename}'.format(path=path, filename=sanitize_filename(filename))
     response = requests.get(url)
     response.raise_for_status()
