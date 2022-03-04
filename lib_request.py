@@ -21,8 +21,6 @@ def download_txt(url, filename, folder='books/'):
         url (str): Cсылка на текст, который хочется скачать.
         filename (str): Имя файла, с которым сохранять.
         folder (str): Папка, куда сохранять.
-    Returns:
-        named_path: Путь до файла, куда сохранён текст.
     """
     path = os.path.join(pathlib.Path().resolve(), folder)
     Path(path).mkdir(parents=True, exist_ok=True)
@@ -39,8 +37,6 @@ def download_image(url, filename, folder='images/'):
         url (str): Cсылка на картинку, который хочется скачать.
         filename (str): Имя файла, с которым сохранять.
         folder (str): Папка, куда сохранять.
-    Returns:
-        named_path: Путь до файла, куда сохранёно изображение.
     """
     path = os.path.join(pathlib.Path().resolve(), folder)
     Path(path).mkdir(parents=True, exist_ok=True)
@@ -63,18 +59,15 @@ def parse_book_page(response):
     else:
         picture_link = None
     parse_genre = soup.select('span.d_book a')
-    genres = []
-    for genre in parse_genre:
-        genres.append(genre.get_text())
-    parsed_table = soup.select('table.d_book a')
-    txt_link = None
-    for tag_a in parsed_table:
-        if 'txt' in tag_a['href']:
-            txt_link = urljoin(response.url, tag_a['href'])
+    genres = [genre.get_text() for genre in parse_genre]
+    raw_txt_link = soup.select('table.d_book td > a[href*="txt"]')
+    if raw_txt_link:
+        tag_link, *_ = raw_txt_link
+        txt_link = urljoin(response.url, tag_link['href'])
+    else:
+        txt_link = None
     parse_comments = soup.select('.texts span')
-    comments = []
-    for comment in parse_comments:
-        comments.append(comment.get_text())
+    comments = [comment.get_text() for comment in parse_comments]
     return {'title': title.strip(),
             'author': author.strip(),
             'picture_link': urljoin(response.url, picture_link),
