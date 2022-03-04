@@ -103,7 +103,8 @@ if __name__ == '__main__':
     extension = '.json'
     full_path = f'./{extension}'
     if user_input.json_path:
-        path = os.path.join(pathlib.Path().resolve(), user_input.json_path)
+        home = Path().resolve()
+        path = Path(home, user_input.json_path)
         Path(path).mkdir(exist_ok=True)
         full_path = f'{path}/{extension}'
     elif user_input.dest_folder:
