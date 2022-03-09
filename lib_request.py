@@ -2,8 +2,6 @@ from urllib.parse import urljoin
 from urllib.parse import urlsplit
 import requests
 from pathlib import Path
-import pathlib
-import os
 from pathvalidate import sanitize_filename
 from bs4 import BeautifulSoup
 import argparse
@@ -22,9 +20,10 @@ def download_txt(url, filename, folder='books/'):
         filename (str): Имя файла, с которым сохранять.
         folder (str): Папка, куда сохранять.
     """
-    path = os.path.join(pathlib.Path().resolve(), folder)
+    home = Path().resolve()
+    path = Path(home, folder)
     Path(path).mkdir(parents=True, exist_ok=True)
-    named_path = '{path}{filename}.txt'.format(path=path, filename=sanitize_filename(filename))
+    named_path = f'{path}/{sanitize_filename(filename)}'
     response = requests.get(url)
     response.raise_for_status()
     with open(named_path, 'w', encoding="utf-8") as file:
@@ -38,9 +37,10 @@ def download_image(url, filename, folder='images/'):
         filename (str): Имя файла, с которым сохранять.
         folder (str): Папка, куда сохранять.
     """
-    path = os.path.join(pathlib.Path().resolve(), folder)
+    home = Path().resolve()
+    path = Path(home, folder)
     Path(path).mkdir(parents=True, exist_ok=True)
-    named_path = '{path}{filename}'.format(path=path, filename=sanitize_filename(filename))
+    named_path = f'{path}/{sanitize_filename(filename)}'
     response = requests.get(url)
     response.raise_for_status()
     with open(named_path, 'wb') as file:

@@ -1,7 +1,5 @@
 import argparse
 import json
-import os
-import pathlib
 from pathlib import Path
 from urllib.parse import urljoin, urlsplit
 
@@ -85,18 +83,11 @@ if __name__ == '__main__':
                                    filename=image_name,
                                    folder=images_path,
                                    )
-            book_inf = {'title': title_text,
-                        'author': book_data.get('author'),
-                        'img_src': '{images_path}{image_name}'.format(images_path=images_path,
-                                                                      image_name=image_name,
-                                                                      ),
-                        'book_path': '{books_path}{filename}.txt'.format(books_path=books_path,
-                                                                         filename=sanitize_filename(filename),
-                                                                         ),
-                        'comments': book_data.get('comments'),
-                        'genres': book_data.get('genres'),
-                        }
-            books_data.append(book_inf)
+            book_data['img_src'] = book_data.pop('picture_link')
+            book_data['img_src'] = f'{images_path}{image_name}'
+            book_data['book_path'] = book_data.pop('txt_link')
+            book_data['book_path'] = f'{books_path}{sanitize_filename(filename)}.txt'
+            books_data.append(book_data)
     book_json_data = json.dumps(books_data, indent=6, ensure_ascii=False)
     json_path = f'{user_input.json_path or user_input.dest_folder}/result.json'
     Path(json_path).mkdir(exist_ok=True)
