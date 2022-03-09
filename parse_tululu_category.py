@@ -27,7 +27,7 @@ def parse_user_input():
                         )
     parser.add_argument('-df', '--dest_folder',
                         help='Folder for parsing book and images',
-                        action='store',
+                        action='store', default='.'
                         )
     parser.add_argument('-si', '--skip_imgs',
                         action='store_true',
@@ -49,9 +49,7 @@ if __name__ == '__main__':
     url = 'http://tululu.org/l55/'
     user_input = parse_user_input()
     books_data = []
-    dest_folder = '.'
-    if user_input.dest_folder:
-        dest_folder = user_input.dest_folder
+    dest_folder = user_input.dest_folder
     books_path = f'{dest_folder}/books/'
     images_path = f'{dest_folder}/images/'
     for page_id in range(user_input.start_page, user_input.end_page):
@@ -99,16 +97,8 @@ if __name__ == '__main__':
                         'genres': book_data.get('genres'),
                         }
             books_data.append(book_inf)
-    jjson = json.dumps(books_data, indent=6, ensure_ascii=False)
-    extension = '.json'
-    full_path = f'./{extension}'
-    if user_input.json_path:
-        home = Path().resolve()
-        path = Path(home, user_input.json_path)
-        Path(path).mkdir(exist_ok=True)
-        full_path = f'{path}/{extension}'
-    elif user_input.dest_folder:
-        path = user_input.dest_folder
-        full_path = f'{path}/{extension}'
-    with open(full_path, 'w') as book_json:
-        book_json.write(jjson)
+    book_json_data = json.dumps(books_data, indent=6, ensure_ascii=False)
+    json_path = f'{user_input.json_path or user_input.dest_folder}/result.json'
+    Path(json_path).mkdir(exist_ok=True)
+    with open(json_path, 'w') as book_json:
+        book_json.write(book_json_data)

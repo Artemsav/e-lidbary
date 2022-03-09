@@ -60,9 +60,8 @@ def parse_book_page(response):
         picture_link = None
     parse_genre = soup.select('span.d_book a')
     genres = [genre.get_text() for genre in parse_genre]
-    raw_txt_link = soup.select('table.d_book td > a[href*="txt"]')
-    if raw_txt_link:
-        tag_link, *_ = raw_txt_link
+    tag_link = soup.select_one('table.d_book td > a[href*="txt"]')
+    if tag_link:
         txt_link = urljoin(response.url, tag_link['href'])
     else:
         txt_link = None
@@ -107,6 +106,5 @@ if __name__ == '__main__':
             filename = '{book_id}. {title_text}'.format(book_id=str(book_id), title_text=title_text)
             download_txt(url=txt_link, filename=filename)
         if image_link:
-            image_link = book_data.get('picture_link')
             image_name = urlsplit(image_link)[2].split('/')[-1]
             download_image(url=urljoin(main_url, image_link), filename=image_name)
