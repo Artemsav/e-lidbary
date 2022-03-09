@@ -11,6 +11,15 @@ from lib_request import (check_for_redirect, download_image, download_txt,
                          parse_book_page)
 
 
+def select_last_page(url):
+    response = requests.get(url)
+    response.raise_for_status()
+    soup = BeautifulSoup(response.text, 'lxml')
+    all_pages = soup.select('a.npage')
+    last_page = all_pages[-1].get_text()
+    return last_page
+
+
 def parse_user_input():
     """Функция для парсинга пользовательского ввода
     """
@@ -21,7 +30,7 @@ def parse_user_input():
                         )
     parser.add_argument('-e', '--end_page',
                         help='End page of book to be parsed',
-                        type=int, default=2,
+                        type=int,
                         )
     parser.add_argument('-df', '--dest_folder',
                         help='Folder for parsing book and images',
@@ -50,6 +59,8 @@ if __name__ == '__main__':
     dest_folder = user_input.dest_folder
     books_path = f'{dest_folder}/books/'
     images_path = f'{dest_folder}/images/'
+    if not user_input.end_page:
+        user_input.end_page = int(select_last_page(url))
     for page_id in range(user_input.start_page, user_input.end_page):
         book_url = urljoin(url, str(page_id))
         response = requests.get(book_url)
