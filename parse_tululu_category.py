@@ -100,7 +100,8 @@ if __name__ == '__main__':
             book_data['book_path'] = f'{books_path}{sanitize_filename(filename)}.txt'
             books_data.append(book_data)
     book_json_data = json.dumps(books_data, indent=6, ensure_ascii=False)
+    json_path_name = f'{user_input.json_path or user_input.dest_folder}'
     json_path = f'{user_input.json_path or user_input.dest_folder}/result.json'
-    Path(json_path).mkdir(exist_ok=True)
+    Path(json_path_name).mkdir(exist_ok=True)
     with open(json_path, 'w') as book_json:
         book_json.write(book_json_data)
