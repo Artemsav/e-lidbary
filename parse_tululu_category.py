@@ -82,7 +82,7 @@ if __name__ == '__main__':
                 splitted_book_url = book_link.split('b')
                 _, book_id = splitted_book_url
                 title_text = book_data.get('title')
-                filename = f'{book_id}. {title_text}'
+                filename = f'{book_id}. {title_text}.txt'
                 if not user_input.skip_txt:
                     download_txt(url=txt_link, filename=filename,
                                 folder=books_path,
