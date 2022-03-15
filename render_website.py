@@ -1,22 +1,28 @@
 import json
-from more_itertools import distribute
+from more_itertools import chunked
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from livereload import Server
+from pathlib import Path
 
 
 def rebuild():
     with open('result.json', 'r') as file:
         data = json.load(file)
-    distributed_data = [list(books) for books in distribute(2, data)]
+    distributed_data = list(chunked(data, 20))
     env = Environment(loader=FileSystemLoader('.'),
                       autoescape=select_autoescape(['html', 'xml'])
                       )
-    template = env.get_template('template.html')
-    rendered_page = template.render(
-      data=distributed_data,
-    )
-    with open('index.html', 'w', encoding="utf8") as file:
-        file.write(rendered_page)
+    for i, books in enumerate(distributed_data, 1):
+        template = env.get_template('template.html')
+        column_data = list(chunked(books, 10))
+        rendered_page = template.render(
+      data=column_data,
+        )
+        folder_dest = f'./pages/'
+        pages_path = f'{folder_dest}index{i}.html'
+        Path(folder_dest).mkdir(exist_ok=True)
+        with open(pages_path, 'w', encoding="utf8") as file:
+            file.write(rendered_page)
 
 
 if __name__ == '__main__':

@@ -97,7 +97,7 @@ if __name__ == '__main__':
             book_data['img_src'] = book_data.pop('picture_link')
             book_data['img_src'] = f'{images_path}{image_name}'
             book_data['book_path'] = book_data.pop('txt_link')
-            book_data['book_path'] = f'{books_path}{sanitize_filename(filename)}.txt'
+            book_data['book_path'] = f'{books_path}{sanitize_filename(filename)}'
             books_data.append(book_data)
     book_json_data = json.dumps(books_data, indent=6, ensure_ascii=False)
     json_path_name = f'{user_input.json_path or user_input.dest_folder}'

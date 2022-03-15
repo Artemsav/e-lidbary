@@ -103,7 +103,7 @@ if __name__ == '__main__':
         image_link = book_data.get('picture_link')
         if txt_link:
             title_text = book_data.get('title')
-            filename = '{book_id}. {title_text}'.format(book_id=str(book_id), title_text=title_text)
+            filename = '{title_text}.txt'.format(book_id=str(book_id), title_text=title_text)
             download_txt(url=txt_link, filename=filename)
         if image_link:
             image_name = urlsplit(image_link)[2].split('/')[-1]
