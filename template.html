@@ -46,6 +46,9 @@
               <div class="card-body">
                 <h5 class="card-title">{{book.title}}</h5>
                   <p class="card-text">{{book.author}}</p>
+                  {% for genres in book.genres %}
+                  <span class="badge badge-light">{{genres}}</span>
+                  {% endfor %}
                   <p class="card-text"><small class="text-muted"><a href="../{{book.book_path|urlencode}}" target="_blank" rel="noopener noreferrer">Читать</a></small></p>
               </div>
             </div>
