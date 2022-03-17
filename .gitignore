@@ -34,8 +34,6 @@ datacenter/
 manage.py
 schoolbase.sqlite3
 bs.py
-books/
-images/
 .vscode/
 # PyInstaller
 #  Usually these files are written by a python script from a template
