@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../static/bootstrap.min.css">
+    <link rel="stylesheet" href="./static/bootstrap.min.css">
 
     <title>Electronic library</title>
-    <link rel = "icon" href="../media/lg.png" type="image/png">
+    <link rel = "icon" href="./media/lg.png" type="image/png">
   </head>
   <body>
     <nav aria-label="Page navigation example">
@@ -41,7 +41,7 @@
           <div class="card mb-3" style="max-width: 540px;">
             <div class="row no-gutters">
               <div class="col-md-4">
-                <img src="../{{book.img_src|urlencode}}" class="card-img" alt="Обложка книги {{book.title}}">
+                <img src="./{{book.img_src|urlencode}}" class="card-img" alt="Обложка книги {{book.title}}">
               </div>
             <div class="col-md-8">
               <div class="card-body">
@@ -50,7 +50,7 @@
                   {% for genres in book.genres %}
                   <span class="badge badge-light">{{genres}}</span>
                   {% endfor %}
-                  <p class="card-text"><small class="text-muted"><a href="../{{book.book_path|urlencode}}" target="_blank" rel="noopener noreferrer">Читать</a></small></p>
+                  <p class="card-text"><small class="text-muted"><a href="./{{book.book_path|urlencode}}" target="_blank" rel="noopener noreferrer">Читать</a></small></p>
               </div>
             </div>
             </div>
@@ -63,8 +63,8 @@
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-    <script src="../static/jquery-3.5.1.slim.min.js"></script>
-    <script src="../static/bootstrap.bundle.min.js"></script>
+    <script src="./static/jquery-3.5.1.slim.min.js"></script>
+    <script src="./static/bootstrap.bundle.min.js"></script>
 
     <!-- Option 2: jQuery, Popper.js, and Bootstrap JS
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

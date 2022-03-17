@@ -21,7 +21,7 @@ def rebuild():
       number_of_page = number_of_page,
       page = i
         )
-        folder_dest = f'./pages/'
+        folder_dest = f'./'
         pages_path = f'{folder_dest}index{i}.html'
         Path(folder_dest).mkdir(exist_ok=True)
         with open(pages_path, 'w', encoding="utf8") as file:
