@@ -8,7 +8,7 @@ Project consist of two parts:
 * HTML pages of book library
 ![Example](./images/example.png)
 
-##### Website published [here](https://artemsav.github.io/e-lidbary/)
+#### Website published [here](https://artemsav.github.io/e-lidbary/)
 
 ### lib_request script
 
