@@ -37,7 +37,7 @@ To run the second one you shall use the following command:
 python parse_tululu_category --start_page 700 --end_page 701 --dest_folder dest_folder --skip_txt --json_path json
 ```
 
-All arguments are optional. This command will download all books from the pages ```700``` to ```701``` to folder ```dest_folder``` without ```.txt``` files. Data about downloaded books will be stored in folder ```json```
+All arguments are optional. This command will download all books from the pages ```700``` to ```701``` to folder ```dest_folder``` without ```.txt``` files.
 Result metadata of downloaded books stored in ```result.json```
 
 ### render_website.py
