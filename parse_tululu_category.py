@@ -78,26 +78,26 @@ if __name__ == '__main__':
                 pass
             txt_link = book_data.get('txt_link')
             image_link = book_data.get('picture_link')
+            book_data['book_path'] = book_data.pop('txt_link')
             if txt_link:
                 splitted_book_url = book_link.split('b')
                 _, book_id = splitted_book_url
                 title_text = book_data.get('title')
                 filename = f'{book_id}. {title_text}.txt'
+                book_data['book_path'] = f'{books_path}{sanitize_filename(filename)}'
                 if not user_input.skip_txt:
                     download_txt(url=txt_link, filename=filename,
-                                folder=books_path,
-                                )
+                                 folder=books_path,
+                                 )
+            book_data['img_src'] = book_data.pop('picture_link')
             if image_link:
                 image_name = urlsplit(image_link)[2].split('/')[-1]
+                book_data['img_src'] = f'{images_path}{image_name}'
                 if not user_input.skip_imgs:
                     download_image(url=urljoin(main_url, image_link),
                                    filename=image_name,
                                    folder=images_path,
                                    )
-            book_data['img_src'] = book_data.pop('picture_link')
-            book_data['img_src'] = f'{images_path}{image_name}'
-            book_data['book_path'] = book_data.pop('txt_link')
-            book_data['book_path'] = f'{books_path}{sanitize_filename(filename)}'
             books_data.append(book_data)
     book_json_data = json.dumps(books_data, indent=6, ensure_ascii=False)
     json_path_name = f'{user_input.json_path or user_input.dest_folder}'

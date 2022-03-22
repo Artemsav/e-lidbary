@@ -8,34 +8,35 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../static/bootstrap.min.css">
 
-    <title>Electronic library</title>
+    <title>E-library</title>
     <link rel = "icon" href="../media/lg.png" type="image/png">
   </head>
   <body>
-    <nav aria-label="Page navigation example">
-      <ul class="pagination" style="margin-left: 225px;">
-        {% if page == 1 %}
-        <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Назад</a></li>
-        {% else %}
-        <li class="page-item"><a class="page-link" href="./index{{page - 1}}.html">Назад</a></li>
-        {% endif %}
-        {% for i in range(1, number_of_page +1) %}
-        {% if i == page %}
-        <li class="page-item active"><a class="page-link" href="./index{{i}}.html">{{i}}</a></li>
-        {% else %}
-        <li class="page-item"><a class="page-link" href="./index{{i}}.html">{{i}}</a></li>
-        {% endif %}
-        {% endfor %}
-        {% if page == number_of_page %}
-        <li class="page-item disabled"><a class="page-link" href="#" tabindex="+1">Вперед</a></li>
-        {% else %}
-        <li class="page-item"><a class="page-link" href="./index{{page + 1}}.html" >Вперед</a></li>
-        {% endif %}
-      </ul>
-    </nav>
     <div class="container">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination" >
+          {% if page == 1 %}
+          <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Назад</a></li>
+          {% else %}
+          <li class="page-item"><a class="page-link" href="./index{{page - 1}}.html">Назад</a></li>
+          {% endif %}
+          {% for i in range(1, number_of_page +1) %}
+          {% if i == page %}
+          <li class="page-item active"><a class="page-link" href="./index{{i}}.html">{{i}}</a></li>
+          {% else %}
+          <li class="page-item"><a class="page-link" href="./index{{i}}.html">{{i}}</a></li>
+          {% endif %}
+          {% endfor %}
+          {% if page == number_of_page %}
+          <li class="page-item disabled"><a class="page-link" href="#" tabindex="+1">Вперед</a></li>
+          {% else %}
+          <li class="page-item"><a class="page-link" href="./index{{page + 1}}.html" >Вперед</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+      <hr class="border-0">
       <div class="row">
-        {% for books in data%}
+        {% for books in column_data%}
         <div class="col">
         {% for book in books %}
           <div class="card mb-3" style="max-width: 540px;">
@@ -50,7 +51,11 @@
                   {% for genres in book.genres %}
                   <span class="badge badge-light">{{genres}}</span>
                   {% endfor %}
-                  <p class="card-text"><small class="text-muted"><a href="../{{book.book_path|urlencode}}" target="_blank" rel="noopener noreferrer">Читать</a></small></p>
+                  {% if book.book_path %}
+                  <p class="card-text"><a href="../{{book.book_path|urlencode}}" target="_blank" rel="noopener noreferrer">Читать</a></p>
+                  {% else %}
+                  <p class="card-text"><p class="font-weight-bold">Текст книги отсутствует в библиотеке</p></p>
+                  {% endif %}
               </div>
             </div>
             </div>
