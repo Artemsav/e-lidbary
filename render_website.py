@@ -15,7 +15,7 @@ def rebuild():
                       )
     for i, books in enumerate(distributed_data, 1):
         template = env.get_template('template.html')
-        column_data = list(chunked(books, books_in_column/2))
+        column_data = list(chunked(books, books_in_column//2))
         number_of_page = len(distributed_data)
         rendered_page = template.render(column_data=column_data,
                                         number_of_page=number_of_page,
