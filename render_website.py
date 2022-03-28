@@ -7,17 +7,17 @@ from pathlib import Path
 
 def rebuild():
     with open('result.json', 'r') as file:
-        book_data = json.load(file)
-    books_in_column = 20
-    distributed_data = list(chunked(book_data, books_in_column))
+        books = json.load(file)
+    books_in_row = 20
+    chunked_books = list(chunked(books, books_in_row))
     env = Environment(loader=FileSystemLoader('.'),
                       autoescape=select_autoescape(['html', 'xml'])
                       )
-    for i, books in enumerate(distributed_data, 1):
+    for i, books in enumerate(chunked_books, 1):
         template = env.get_template('template.html')
-        column_data = list(chunked(books, books_in_column//2))
-        number_of_page = len(distributed_data)
-        rendered_page = template.render(column_data=column_data,
+        books_columns = list(chunked(books, books_in_row//2))
+        number_of_page = len(chunked_books)
+        rendered_page = template.render(books_columns=books_columns,
                                         number_of_page=number_of_page,
                                         page=i
                                         )
