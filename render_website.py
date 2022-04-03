@@ -16,9 +16,9 @@ def rebuild():
     for i, books in enumerate(chunked_books, 1):
         template = env.get_template('template.html')
         books_columns = list(chunked(books, books_on_page//2))
-        number_of_page = len(chunked_books)
+        number_of_pages = len(chunked_books)
         rendered_page = template.render(books_columns=books_columns,
-                                        number_of_page=number_of_page,
+                                        number_of_page=number_of_pages,
                                         page=i
                                         )
         folder_dest = './pages/'
